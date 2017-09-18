@@ -53,7 +53,18 @@ Resources:
 
           exports.handler = (event, context, callback) => {
             console.log("try to read chat");
+            var params = {
+                TableName: "${TeamName}-chat",
+                Limit: 10,
+            };
 
+            dynamodb.scan(params, function(err, data) {
+                callback(null, {
+                    input: event,
+                    err: err,
+                    output: data
+                });
+            });
           };
 
 Outputs:
